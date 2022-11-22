@@ -9,6 +9,7 @@ import { Product } from '../model/product';
 export class ProductsComponent implements OnInit {
   title : string = 'Welcome to products page'
   products : Product[] = [];
+  searchText:string=""
   constructor() { }
 
   ngOnInit(): void {
@@ -26,6 +27,10 @@ export class ProductsComponent implements OnInit {
 
   Like(id:number){
     this.products.map((produit)=> produit.id == id && produit.like++)
+  }
+
+  search(){
+   this.products= this.products.filter((product)=>product.title.match(this.searchText))
   }
 
 }
