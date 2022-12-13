@@ -13,6 +13,8 @@
                   <p class="card-text">Like : {{p.like}}</p>
                   <button class="btn btn-primary" (click)="Buy(p.id)" [disabled]="p.quantity == 0">Buy</button>
                   <button class="btn btn-primary" (click)="Like(p.id)">Like</button>
+                  <button class="btn btn-primary" (click)="Delete(p.id)">Delete</button>
+
                   <button [routerLink]="['/product',p.id]">Détails</button>
                   <p class="best" *ngIf="p.like > 10">Best Product</p>
                 </div>

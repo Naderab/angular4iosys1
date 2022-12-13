@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
+import { ConsumerProductService } from '../services/consumer-product.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -10,15 +12,15 @@ export class ProductsComponent implements OnInit {
   title : string = 'Welcome to products page'
   products : Product[] = [];
   searchText:string=""
-  constructor() { }
+  constructor(private productService:ProductService,private consumerProduct:ConsumerProductService) { }
 
   ngOnInit(): void {
-    this.products = [
-      {id:1,title:'T-shirt 1',quantity:10,price:200,like:0,picture:'https://static.bershka.net/4/photos2/2022/I/0/2/p/8171/443/800/8171443800_2_4_3.jpg?t=1658758238036'},
-      {id:2,title:'T-shirt 2',quantity:0,price:30,like:0,picture:'https://static.bershka.net/4/photos2/2022/I/0/2/p/8171/443/800/8171443800_2_4_3.jpg?t=1658758238036'},
-      {id:3,title:'T-shirt 3',quantity:100,price:2,like:0,picture:'https://static.bershka.net/4/photos2/2022/I/0/2/p/8171/443/800/8171443800_2_4_3.jpg?t=1658758238036'},
-
-    ];
+    //this.products = this.productService.products;
+    this.consumerProduct.getProducts().subscribe({
+      next : (data)=>this.products = data,
+      error : (error)=>console.log(error),
+      complete : () => console.log("I m finishing")
+    })
   }
 
   Buy(id:number){
@@ -31,6 +33,12 @@ export class ProductsComponent implements OnInit {
 
   search(){
    this.products= this.products.filter((product)=>product.title.match(this.searchText))
+  }
+
+  Delete(id:number){
+    this.consumerProduct.deleteProduct(id).subscribe({
+      next : ()=>this.products = this.products.filter((p)=>p.id != id)
+    })
   }
 
 }

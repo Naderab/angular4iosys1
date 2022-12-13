@@ -11,7 +11,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { TemplateDrivenFormComponent } from './template-driven-form/template-driven-form.component';
-
+import {HttpClientModule} from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,8 @@ import { TemplateDrivenFormComponent } from './template-driven-form/template-dri
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
